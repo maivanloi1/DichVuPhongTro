@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BD10_DichVuPhongTro", "BD10
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44BAD02E-2271-4F17-A21B-6858B29E036B}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database1", "..\Database1\Database1.sqlproj", "{F58CEADA-53E7-4356-81D8-51C3F095C2CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,12 @@ Global
 		{6C8522E0-6A1B-467F-8FC7-8775A96BA441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C8522E0-6A1B-467F-8FC7-8775A96BA441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C8522E0-6A1B-467F-8FC7-8775A96BA441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F58CEADA-53E7-4356-81D8-51C3F095C2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F58CEADA-53E7-4356-81D8-51C3F095C2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F58CEADA-53E7-4356-81D8-51C3F095C2CA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F58CEADA-53E7-4356-81D8-51C3F095C2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F58CEADA-53E7-4356-81D8-51C3F095C2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F58CEADA-53E7-4356-81D8-51C3F095C2CA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
