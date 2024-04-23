@@ -4,8 +4,8 @@
 
 <html>
 <head runat="server">
-    <title>DichVuPhongTro</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Dịch Vụ Phòng Trọ</title>
+    <link rel="stylesheet" href="\css\style.css" />
 </head>
 <body>
     <form id="form1" runat="server">

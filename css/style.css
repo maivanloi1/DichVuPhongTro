@@ -1,4 +1,9 @@
-﻿.grid {
+﻿*{
+   margin:0;
+   padding:0;
+   box-sizing:border-box;
+}
+.grid {
     display: flex;
     width: 100%;
     margin: 0 auto;
@@ -17,15 +22,20 @@
     width: 57%;
 }
 
-.container__header {
+.container__header{
     border-bottom: 1px solid #333;
     width: 100%;
+}
+
+.container__title {
+    height: 70px;
+    line-height: 70px;
 }
 
 .container__title-header {
     text-align: center;
     height: 50px;
-    line-height:50px;
+    
 }
 
 .container__body {
