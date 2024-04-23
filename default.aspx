@@ -12,7 +12,7 @@
         <div class="grid">
             <div class="container__header">
                 <div class="container__title">
-                    <h2>Dịch Vụ Phòng Trọ</h2>
+                    <h2 class="container__title-header">Dịch Vụ Phòng Trọ</h2>
                 </div>
             </div>
         </div>
@@ -61,41 +61,41 @@
                                     <ItemTemplate>
                                         <%# Container.DataItemIndex + 1 %>
                                     </ItemTemplate>
-                                    <HeaderStyle HorizontalAlign="Left" Width="25px" />
-                                    <ItemStyle HorizontalAlign="Left" Font-Bold="true" />
+                                    <HeaderStyle HorizontalAlign="Center" Width="25px" />
+                                    <ItemStyle HorizontalAlign="Center" Font-Bold="true" />
                                 </asp:TemplateField>
 
                                 <asp:BoundField DataField="Column1" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Column2" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Column3" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Column4" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Column5" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Column6" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Column7" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Column8" HeaderText="" Visible="false">
-                                    <HeaderStyle HorizontalAlign="Left" />
-                                    <ItemStyle HorizontalAlign="Left" />
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
                             </Columns>
                         </asp:GridView>

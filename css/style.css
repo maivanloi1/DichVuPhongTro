@@ -22,6 +22,12 @@
     width: 100%;
 }
 
+.container__title-header {
+    text-align: center;
+    height: 50px;
+    line-height:50px;
+}
+
 .container__body {
     margin-top: 20px;
 }
