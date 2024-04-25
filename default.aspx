@@ -58,42 +58,42 @@
                         <asp:GridView ID="listItem" runat="server" AutoGenerateColumns="False" AllowSorting="True" Width="100%">
                             <Columns>
                                 <asp:TemplateField HeaderText="STT">
-                                    <ItemTemplate>
+                                    <ItemTemplate >
                                         <%# Container.DataItemIndex + 1 %>
                                     </ItemTemplate>
                                     <HeaderStyle HorizontalAlign="Center" Width="25px" />
                                     <ItemStyle HorizontalAlign="Center" Font-Bold="true" />
                                 </asp:TemplateField>
 
-                                <asp:BoundField DataField="Column1" HeaderText="" >
+                                <asp:BoundField DataField="Column1" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Column2" HeaderText=""  >
+                                <asp:BoundField DataField="Column2" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Column3" HeaderText="" >
+                                <asp:BoundField DataField="Column3" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Column4" HeaderText="" >
+                                <asp:BoundField DataField="Column4" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Column5" HeaderText="" >
+                                <asp:BoundField DataField="Column5" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Column6" HeaderText="" >
+                                <asp:BoundField DataField="Column6" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Column7" HeaderText="" >
+                                <asp:BoundField DataField="Column7" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Column8" HeaderText="" >
+                                <asp:BoundField DataField="Column8" HeaderText="">
                                     <HeaderStyle HorizontalAlign="Center" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:BoundField>
@@ -103,15 +103,18 @@
                 </div>
 
                 <div class="grid__row-2">
-                    
+
                     <div class="nav-header">
                         <h4 class="nav-header__title">Chức Năng</h4>
                     </div>
                     <div class="nav-body">
                         <ul class="nav-body__list">
-                            <li class="nav-body__list-item"><asp:LinkButton  ID="BtnView" runat="server" Text="Xem Chi Tiết" OnClick="ViewDetail_Click" /></li>
-                            <li class="nav-body__list-item"><asp:LinkButton ID="BtnUpt" runat="server" Text="Cập Nhật" OnClick="Update_Click" /></li>
-                            <li class="nav-body__list-item"><asp:LinkButton ID="BtnDel" runat="server" Text="Xoá" OnClick="Delete_Click" /></li>
+                            <li class="nav-body__list-item">
+                                <asp:LinkButton ID="BtnView" runat="server" Text="Xem Chi Tiết" OnClick="ViewDetail_Click" /></li>
+                            <li class="nav-body__list-item">
+                                <asp:LinkButton ID="BtnUpt" runat="server" Text="Cập Nhật" OnClick="Update_Click" /></li>
+                            <li class="nav-body__list-item">
+                                <asp:LinkButton ID="BtnDel" runat="server" Text="Xoá" OnClick="Delete_Click" /></li>
                         </ul>
                     </div>
 
