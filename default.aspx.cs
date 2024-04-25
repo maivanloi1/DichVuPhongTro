@@ -14,6 +14,19 @@ namespace BD10_DichVuPhongTro
         SqlConnection myCon = new SqlConnection(ConfigurationManager.ConnectionStrings["localConnection"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            HopDong_Click(sender, e); 
+        }
+
+        protected void HopDong_Click(object sender, EventArgs e)
+        {
+            listItem.Columns[1].HeaderText = "Ngày Hợp Đồng";
+            listItem.Columns[2].HeaderText = "Của";
+            listItem.Columns[3].HeaderText = "Ngày Thu Tiền Điện";
+            listItem.Columns[4].HeaderText = "Ngày Thu Tiền Nước";
+            listItem.Columns[5].HeaderText = "Loại Khai Báo";
+            listItem.Columns[6].HeaderText = "Phòng Số";
+            listItem.Columns[7].HeaderText = "Phiếu Thu";
+            listItem.Columns[8].HeaderText = "Phiếu Chi";
             try
             {
                 myCon.Open();
@@ -24,7 +37,6 @@ namespace BD10_DichVuPhongTro
                     "HopDong.KhaiBao_Id = KhaiBao.Id AND HopDong.PhongTro_Id = PhongTro.Id AND HopDong.PhieuThu_Id = PhieuThu.Id AND HopDong.PhieuChi_Id = PhieuChi.Id";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -38,11 +50,6 @@ namespace BD10_DichVuPhongTro
             }
             catch (Exception ex) { }
             finally { myCon.Close(); }
-        }
-
-        protected void HopDong_Click(object sender, EventArgs e)
-        {
-            Page_Load(sender, e);
         }
 
         protected void Nuoc_Click(object sender, EventArgs e)
@@ -246,33 +253,27 @@ namespace BD10_DichVuPhongTro
             finally { myCon.Close(); }
         }
 
+        protected void ViewDetail_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void Update_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void Delete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
         public void gridView_visible(object sender)
         {
             LinkButton clickedButton = (LinkButton)sender;
             string buttonText = clickedButton.Text;
             switch(buttonText)
             {
-                case "Hợp Đồng":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = true;
-                    listItem.Columns[6].Visible = true;
-                    listItem.Columns[7].Visible = true;
-                    listItem.Columns[8].Visible = true;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Ngày Hợp Đồng";
-                    listItem.Columns[2].HeaderText = "Của";
-                    listItem.Columns[3].HeaderText = "Ngày Thu Tiền Điện";
-                    listItem.Columns[4].HeaderText = "Ngày Thu Tiền Nước";
-                    listItem.Columns[5].HeaderText = "Loại Khai Báo";
-                    listItem.Columns[6].HeaderText = "Phòng Số";
-                    listItem.Columns[7].HeaderText = "Phiếu Thu";
-                    listItem.Columns[8].HeaderText = "Phiếu Chi";
-
-                    break;
                 case "Người Thuê":
                     //visible
                     listItem.Columns[1].Visible = true;
