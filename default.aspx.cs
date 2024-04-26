@@ -15,7 +15,25 @@ namespace BD10_DichVuPhongTro
         SqlConnection myCon = new SqlConnection(ConfigurationManager.ConnectionStrings["localConnection"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
-            HopDong_Click(sender, e); 
+            string user = (string)Session["username"];
+            if (user == "admin")
+                HopDong_Click(sender, e);
+            else
+                listItem.Visible = false;
+
+            if (string.IsNullOrEmpty(user) == false)
+            {
+                LoginBtn.Visible = false;
+                LogoutBtn.Visible = true;
+                CurrentUser.Text = user;
+            }
+            else
+            {
+                LoginBtn.Visible = true;
+                LogoutBtn.Visible = false;
+                CurrentUser.Text = "";
+            }
+
         }
 
         protected void HopDong_Click(object sender, EventArgs e)
@@ -56,7 +74,7 @@ namespace BD10_DichVuPhongTro
         protected void Nuoc_Click(object sender, EventArgs e)
         {
             try
-            { 
+            {
                 myCon.Open();
 
                 string qry = "SELECT Ngay AS Column1, SoChuNuoc AS Column2, DonGia AS Column3 FROM Nuoc";
@@ -266,16 +284,25 @@ namespace BD10_DichVuPhongTro
         {
 
         }
-       
-        
 
-        
+        protected void LoginBtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
+        }
+
+        protected void LogoutBtn_Click(object sender, EventArgs e)
+        {
+            Session["username"] = "";
+            Response.Redirect("default.aspx");
+        }
+
+
 
         public void gridView_visible(object sender)
         {
             LinkButton clickedButton = (LinkButton)sender;
             string buttonText = clickedButton.Text;
-            switch(buttonText)
+            switch (buttonText)
             {
                 case "Người Thuê":
                     //visible

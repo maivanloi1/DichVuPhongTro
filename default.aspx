@@ -5,7 +5,9 @@
 <html>
 <head runat="server">
     <title>Dịch Vụ Phòng Trọ</title>
-    <link rel="stylesheet" href="\css\style.css" />
+    <link rel="icon" href="https://logo.com/image-cdn/images/kts928pd/production/1a97a4884a330b23b1592a08163464803626587d-413x384.png?w=1080&q=72">
+    <link rel="stylesheet" href="/font/fontawesome-free-6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -13,6 +15,11 @@
             <div class="container__header">
                 <div class="container__title">
                     <h2 class="container__title-header">Dịch Vụ Phòng Trọ</h2>
+                </div>
+                <div class="container__account">
+                    <asp:LinkButton ID="LoginBtn" runat="server" Text="Login" OnClick="LoginBtn_Click" />
+                    <asp:LinkButton ID="LogoutBtn" runat="server" Text="Logout" OnClick="LogoutBtn_Click" />
+                    <asp:Label ID="CurrentUser" runat="server" Text=""></asp:Label>
                 </div>
             </div>
         </div>
@@ -121,6 +128,7 @@
                 </div>
             </div>
         </div>
+        <span><a href="Login.aspx">Login</a> </span>
     </form>
 
 </body>
