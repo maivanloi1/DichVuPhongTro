@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,12 +14,16 @@ namespace BD10_DichVuPhongTro
 {
     public partial class _default : System.Web.UI.Page
     {
+        String tableName = "1";
+        int ID;
         SqlConnection myCon = new SqlConnection(ConfigurationManager.ConnectionStrings["localConnection"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+
             string user = (string)Session["username"];
+
             if (user == "admin")
-                HopDong_Click(sender, e);
+            { Session["username"] = "admin"; }
             else
                 listItem.Visible = false;
 
@@ -34,18 +40,13 @@ namespace BD10_DichVuPhongTro
                 CurrentUser.Text = "";
             }
 
+
         }
 
         protected void HopDong_Click(object sender, EventArgs e)
         {
-            listItem.Columns[1].HeaderText = "Ngày Hợp Đồng";
-            listItem.Columns[2].HeaderText = "Của";
-            listItem.Columns[3].HeaderText = "Ngày Thu Tiền Điện";
-            listItem.Columns[4].HeaderText = "Ngày Thu Tiền Nước";
-            listItem.Columns[5].HeaderText = "Loại Khai Báo";
-            listItem.Columns[6].HeaderText = "Phòng Số";
-            listItem.Columns[7].HeaderText = "Phiếu Thu";
-            listItem.Columns[8].HeaderText = "Phiếu Chi";
+
+
             try
             {
                 myCon.Open();
@@ -56,6 +57,7 @@ namespace BD10_DichVuPhongTro
                     "HopDong.KhaiBao_Id = KhaiBao.Id AND HopDong.PhongTro_Id = PhongTro.Id AND HopDong.PhieuThu_Id = PhieuThu.Id AND HopDong.PhieuChi_Id = PhieuChi.Id";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
+                    gridView_visible(sender);
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -67,12 +69,13 @@ namespace BD10_DichVuPhongTro
 
 
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
         protected void Nuoc_Click(object sender, EventArgs e)
         {
+
             try
             {
                 myCon.Open();
@@ -89,12 +92,13 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
         protected void Dien_Click(object sender, EventArgs e)
         {
+
             try
             {
                 myCon.Open();
@@ -114,8 +118,11 @@ namespace BD10_DichVuPhongTro
 
 
             }
-            catch (Exception ex) { }
-            finally { myCon.Close(); }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
+            finally
+            {
+                myCon.Close();
+            }
         }
 
         protected void NguoiThue_Click(object sender, EventArgs e)
@@ -136,7 +143,7 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
@@ -158,7 +165,7 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
@@ -180,7 +187,7 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
@@ -202,7 +209,7 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
@@ -224,7 +231,7 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
@@ -246,7 +253,7 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
@@ -268,18 +275,194 @@ namespace BD10_DichVuPhongTro
                     sdr.Close();
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
             finally { myCon.Close(); }
         }
 
-        protected void ViewDetail_Click(object sender, EventArgs e)
+        protected void ThongKe_Click(object sender, EventArgs e)
         {
+
+        }
+
+        protected void btnSlcID_Click(object sender, EventArgs e)
+        {
+            tableName = listTable.SelectedValue;
+            try
+            {
+                ID = Convert.ToInt32(TbID.Text);
+                String sql = "SELECT * FROM " + tableName + " WHERE Id = " + ID;
+                getNhomForDL(tableName);
+                View_Upd(tableName);
+                try
+                {
+                    myCon = DBClass.OpenConn();
+                    using (SqlCommand myCmd = new SqlCommand(sql, myCon))
+                    {
+                        myCmd.Connection = myCon;
+                        myCmd.CommandType = CommandType.Text;
+
+                        SqlDataReader myDr = myCmd.ExecuteReader();
+
+                        if (myDr.HasRows)
+                        {
+                            while (myDr.Read())
+                            {
+
+                                switch (tableName)
+                                {
+                                    case "HopDong":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+
+                                        dl1.SelectedValue = myDr.GetValue(2).ToString();
+                                        dl2.SelectedValue = myDr.GetValue(3).ToString();
+                                        dl3.SelectedValue = myDr.GetValue(4).ToString();
+                                        dl4.SelectedValue = myDr.GetValue(5).ToString();
+                                        dl5.SelectedValue = myDr.GetValue(6).ToString();
+                                        dl6.SelectedValue = myDr.GetValue(7).ToString();
+                                        dl7.SelectedValue = myDr.GetValue(8).ToString();
+
+                                        break;
+                                    case "NguoiThue":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+                                        txt4.Text = myDr.GetValue(4).ToString();
+
+                                        break;
+                                    case "PhongTro":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+                                        txt4.Text = myDr.GetValue(4).ToString();
+
+                                        break;
+                                    case "Dien":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+
+                                        break;
+                                    case "Nuoc":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+
+                                        break;
+                                    case "KhaiBao":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+
+                                        break;
+                                    case "PhieuThu":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+                                        txt4.Text = myDr.GetValue(4).ToString();
+
+                                        break;
+                                    case "PhieuChi":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+                                        txt4.Text = myDr.GetValue(4).ToString();
+
+                                        break;
+                                    case "ThietBi":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+                                        txt4.Text = myDr.GetValue(4).ToString();
+                                        dl1.SelectedValue = myDr.GetValue(5).ToString();
+
+                                        break;
+                                    case "GopY":
+                                        txt1.Text = myDr.GetValue(1).ToString();
+                                        txt2.Text = myDr.GetValue(2).ToString();
+                                        txt3.Text = myDr.GetValue(3).ToString();
+                                        dl1.SelectedValue = myDr.GetValue(4).ToString();
+
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>");
+                }
+                finally { myCon.Close(); }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openSPDetail(); });", true);
+
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Vui Lòng Nhập ID" + ex.Message + "')</script>");
+            }
 
         }
         protected void Update_Click(object sender, EventArgs e)
         {
 
+            lblUpd.Visible = true;
+            btnUpd.Visible = true;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openSPDetail(); });", true);
+
         }
+
+        protected void btnUpd_Click(object sender, EventArgs e)
+        {
+            String nametb = listTable.SelectedValue;
+            Upd_Table(nametb);
+            switch (nametb)
+            {
+                case "Hợp Đồng":
+                    HopDong_Click(sender, e);
+
+                    break;
+                case "Người Thuê":
+                    NguoiThue_Click(sender, e);
+
+                    break;
+                case "Khai Báo":
+                    KhaiBao_Click(sender, e);
+
+                    break;
+                case "Góp Ý":
+                    GopY_Click(sender, e);
+
+                    break;
+                case "Điện":
+                    Dien_Click(sender, e);
+
+                    break;
+                case "Nước":
+                    Nuoc_Click(sender, e);
+
+                    break;
+                case "Phiếu Thu":
+                    PhieuThu_Click(sender, e);
+
+                    break;
+                case "Phiếu Chi":
+                    PhieuChi_Click(sender, e);
+
+                    break;
+                case "Phòng Trọ":
+                    PhongTro_Click(sender, e);
+
+                    break;
+                case "Thiết Bị":
+                    ThietBi_Click(sender, e);
+
+                    break;
+            }
+            Page_Load(sender, e);
+
+        }
+
         protected void Delete_Click(object sender, EventArgs e)
         {
 
@@ -296,7 +479,465 @@ namespace BD10_DichVuPhongTro
             Response.Redirect("default.aspx");
         }
 
+        public void getNhomForDL(String tbname)
+        {
+            try
+            {
+                myCon = DBClass.OpenConn();
+                switch (tbname)
+                {
 
+                    case "HopDong":
+                        String mysqlhp1 = "SELECT * FROM NguoiThue";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlhp1, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl1.DataSource = myDr;
+                            dl1.DataTextField = "HoTen";
+                            dl1.DataValueField = "Id";
+                            dl1.DataBind();
+                            dl1.Items.Insert(0, new ListItem("-- Chọn Người Thuê --", "0"));
+                            myDr.Close();
+                        }
+                        String mysqlhp2 = "SELECT * FROM Dien";
+                        using (SqlCommand cmd = new SqlCommand(mysqlhp2, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl2.DataSource = myDr;
+                            dl2.DataTextField = "Ngay";
+                            dl2.DataValueField = "Id";
+                            dl2.DataBind();
+                            dl2.Items.Insert(0, new ListItem("-- Chọn Ngày --", "0"));
+                            myDr.Close();
+                        }
+                        String mysqlhp3 = "SELECT * FROM Nuoc";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlhp3, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl3.DataSource = myDr;
+                            dl3.DataTextField = "Ngay";
+                            dl3.DataValueField = "Id";
+                            dl3.DataBind();
+                            dl3.Items.Insert(0, new ListItem("-- Chọn Ngày --", "0"));
+                            myDr.Close();
+                        }
+                        String mysqlhp4 = "SELECT * FROM KhaiBao";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlhp4, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl4.DataSource = myDr;
+                            dl4.DataTextField = "Loai";
+                            dl4.DataValueField = "Id";
+                            dl4.DataBind();
+                            dl4.Items.Insert(0, new ListItem("-- Chọn Loại Khai Báo --", "0"));
+                            myDr.Close();
+                        }
+                        String mysqlhp5 = "SELECT * FROM PhongTro";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlhp5, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl5.DataSource = myDr;
+                            dl5.DataTextField = "SoPhong";
+                            dl5.DataValueField = "Id";
+                            dl5.DataBind();
+                            dl5.Items.Insert(0, new ListItem("-- Chọn Phòng --", "0"));
+                            myDr.Close();
+                        }
+                        String mysqlhp6 = "SELECT * FROM PhieuThu";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlhp6, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl6.DataSource = myDr;
+                            dl6.DataTextField = "SoCT";
+                            dl6.DataValueField = "Id";
+                            dl6.DataBind();
+                            dl6.Items.Insert(0, new ListItem("-- Chọn Số Phiếu Thu --", "0"));
+                            myDr.Close();
+                        }
+                        String mysqlhp7 = "SELECT * FROM PhieuChi";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlhp7, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl7.DataSource = myDr;
+                            dl7.DataTextField = "SoCT";
+                            dl7.DataValueField = "Id";
+                            dl7.DataBind();
+                            dl7.Items.Insert(0, new ListItem("-- Chọn Số Phiếu Chi --", "0"));
+                            myDr.Close();
+                        }
+                        break;
+
+                    case "GopY":
+                        String mysqlnt1 = "SELECT * FROM NguoiThue";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlnt1, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl1.DataSource = myDr;
+                            dl1.DataTextField = "HoTen";
+                            dl1.DataValueField = "Id";
+                            dl1.DataBind();
+                            dl1.Items.Insert(0, new ListItem("-- Chọn Người Thuê --", "0"));
+                            myDr.Close();
+                        }
+                        break;
+                    case "ThietBi":
+                        String mysqlpt1 = "SELECT * FROM PhongTro";
+
+                        using (SqlCommand cmd = new SqlCommand(mysqlpt1, myCon))
+                        {
+                            SqlDataReader myDr = cmd.ExecuteReader();
+                            dl1.DataSource = myDr;
+                            dl1.DataTextField = "SoPhong";
+                            dl1.DataValueField = "Id";
+                            dl1.DataBind();
+                            dl1.Items.Insert(0, new ListItem("-- Chọn Số Phòng --", "0"));
+                            myDr.Close();
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
+            finally { myCon.Close(); }
+        }
+        public void View_Upd(String tbname)
+        {
+            switch (tbname)
+            {
+                case "HopDong":
+                    txt1.Visible = true;
+                    txt2.Visible = false;
+                    txt3.Visible = false;
+                    txt4.Visible = false;
+                    dl1.Visible = true;
+                    dl2.Visible = true;
+                    dl3.Visible = true;
+                    dl4.Visible = true;
+                    dl5.Visible = true;
+                    dl6.Visible = true;
+                    dl7.Visible = true;
+
+                    txt1.ToolTip = "Ngày Hợp Đồng";
+                    break;
+                case "NguoiThue":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = true;
+                    dl1.Visible = false;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Họ Tên";
+                    txt2.ToolTip = "Số Điện Thoại";
+                    txt3.ToolTip = "Căn Cước Công Dân";
+                    txt4.ToolTip = "Quê Quán";
+                    break;
+                case "PhongTro":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = true;
+                    dl1.Visible = false;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Số Phòng";
+                    txt2.ToolTip = "Tình Trạng";
+                    txt3.ToolTip = "Loại Phòng";
+                    txt4.ToolTip = "Đơn Giá";
+                    break;
+                case "PhieuThu":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = true;
+                    dl1.Visible = false;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Số Chứng Từ";
+                    txt2.ToolTip = "Ngày Thu";
+                    txt3.ToolTip = "Tổng Tiền Thu";
+                    txt4.ToolTip = "Nội Dung Thu";
+                    break;
+                case "PhieuChi":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = true;
+                    dl1.Visible = false;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Số Chứng Từ";
+                    txt2.ToolTip = "Ngày Thu";
+                    txt3.ToolTip = "Tổng Tiền Chi";
+                    txt4.ToolTip = "Nội Dung Chi";
+                    break;
+                case "Nuoc":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = false;
+                    dl1.Visible = false;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Ngày";
+                    txt2.ToolTip = "Số Chữ Nước";
+                    txt3.ToolTip = "Đơn Giá Nước";
+                    break;
+                case "Dien":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = false;
+                    dl1.Visible = false;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Ngày";
+                    txt2.ToolTip = "Số Chữ Điện";
+                    txt3.ToolTip = "Đơn Giá Điện";
+                    break;
+                case "ThietBi":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = true;
+                    dl1.Visible = true;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Tên Thiết Bị";
+                    txt2.ToolTip = "Giá";
+                    txt3.ToolTip = "Ngày Mua";
+                    txt4.ToolTip = "Thời Gian Bảo Hành";
+                    break;
+                case "KhaiBao":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = false;
+                    dl1.Visible = false;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Loại Khai Báo";
+                    txt2.ToolTip = "Ngày";
+                    txt3.ToolTip = "Tình Trạng";
+                    break;
+                case "GopY":
+                    txt1.Visible = true;
+                    txt2.Visible = true;
+                    txt3.Visible = true;
+                    txt4.Visible = false;
+                    dl1.Visible = true;
+                    dl2.Visible = false;
+                    dl3.Visible = false;
+                    dl4.Visible = false;
+                    dl5.Visible = false;
+                    dl6.Visible = false;
+                    dl7.Visible = false;
+
+                    txt1.ToolTip = "Ngày";
+                    txt2.ToolTip = "Trạng Thái";
+                    txt3.ToolTip = "Nội Dung";
+                    break;
+            }
+        }
+
+        public void Upd_Table(String tbname)
+        {
+            try
+            {
+                myCon = DBClass.OpenConn();
+                ID = Convert.ToInt32(TbID.Text);
+                switch(tbname)
+                {
+                    case "HopDong":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdateHD", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@Ngay", SqlDbType.DateTime).Value = DateTime.Parse(txt1.Text);
+                            cmd.Parameters.Add("@NT_ID", SqlDbType.NVarChar).Value = dl1.SelectedValue;
+                            cmd.Parameters.Add("@D_ID", SqlDbType.NVarChar).Value = dl2.SelectedValue;
+                            cmd.Parameters.Add("@N_ID", SqlDbType.NVarChar).Value = dl3.SelectedValue;
+                            cmd.Parameters.Add("@KB_ID", SqlDbType.NVarChar).Value = dl4.SelectedValue;
+                            cmd.Parameters.Add("@PTro_ID", SqlDbType.NVarChar).Value = dl5.SelectedValue;
+                            cmd.Parameters.Add("@PT_ID", SqlDbType.NVarChar).Value = dl6.SelectedValue;
+                            cmd.Parameters.Add("@PC_ID", SqlDbType.NVarChar).Value = dl7.SelectedValue;
+
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "NguoiThue":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdateNT", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@HoTen", SqlDbType.NVarChar).Value = txt1.Text;
+                            cmd.Parameters.Add("@SDT", SqlDbType.NVarChar).Value = txt2.Text;
+                            cmd.Parameters.Add("@CCCD", SqlDbType.NVarChar).Value = txt3.Text;
+                            cmd.Parameters.Add("@QueQuan", SqlDbType.NVarChar).Value = txt4.Text;
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "PhieuThu":
+                    case "PhieuChi":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdatePTPC", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@SoCT", SqlDbType.NVarChar).Value = txt1.Text;
+                            cmd.Parameters.Add("@Ngay", SqlDbType.DateTime).Value = DateTime.Parse(txt2.Text);
+                            cmd.Parameters.Add("@TongTien", SqlDbType.Decimal).Value = decimal.Parse(txt3.Text);
+                            cmd.Parameters.Add("@NoiDung", SqlDbType.NVarChar).Value = txt4.Text;
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "Nuoc":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdateNuoc", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@Ngay", SqlDbType.DateTime).Value = DateTime.Parse(txt1.Text);
+                            cmd.Parameters.Add("@SoChuNuoc", SqlDbType.Float).Value = float.Parse(txt2.Text);
+                            cmd.Parameters.Add("@DonGia", SqlDbType.Decimal).Value = decimal.Parse(txt3.Text);
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "Dien":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdateDien", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@Ngay", SqlDbType.DateTime).Value = DateTime.Parse(txt1.Text);
+                            cmd.Parameters.Add("@SoChuDien", SqlDbType.Float).Value = float.Parse(txt2.Text);
+                            cmd.Parameters.Add("@DonGia", SqlDbType.Decimal).Value = decimal.Parse(txt3.Text);
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "PhongTro":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdatePTro", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@SoPhong", SqlDbType.Int).Value = int.Parse(txt1.Text);
+                            cmd.Parameters.Add("@TinhTrang", SqlDbType.NVarChar).Value = txt2.Text;
+                            cmd.Parameters.Add("@LoaiPhong", SqlDbType.NVarChar).Value = txt3.Text;
+                            cmd.Parameters.Add("@DonGia", SqlDbType.Decimal).Value = decimal.Parse(txt4.Text);
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "GopY":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdateGY", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@Ngay", SqlDbType.DateTime).Value = DateTime.Parse(txt1.Text);
+                            cmd.Parameters.Add("@TrangThai", SqlDbType.NVarChar).Value = txt2.Text;
+                            cmd.Parameters.Add("@NoiDung", SqlDbType.NVarChar).Value = txt3.Text;
+                            cmd.Parameters.Add("@NT_ID", SqlDbType.NVarChar).Value = dl1.SelectedValue;
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "KhaiBao":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdateKB", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@Loai", SqlDbType.NVarChar).Value = txt1.Text;
+                            cmd.Parameters.Add("@Ngay", SqlDbType.DateTime).Value = DateTime.Parse(txt2.Text);
+                            cmd.Parameters.Add("@TinhTrang", SqlDbType.NVarChar).Value = txt3.Text;
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                    case "ThietBi":
+                        using (SqlCommand cmd = new SqlCommand("dbo.UpdateTB", myCon))
+                        {
+                            cmd.Connection = myCon;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.Parameters.Add("@TenTB", SqlDbType.NVarChar).Value = txt1.Text;
+                            cmd.Parameters.Add("@Gia", SqlDbType.Decimal).Value = decimal.Parse(txt2.Text);
+                            cmd.Parameters.Add("@NgayMua", SqlDbType.DateTime).Value = DateTime.Parse(txt3.Text);
+                            cmd.Parameters.Add("@ThoiGianBH", SqlDbType.NVarChar).Value = txt4.Text;
+                            cmd.Parameters.Add("@PT_ID", SqlDbType.NVarChar).Value = dl1.SelectedValue;
+
+                            int rows = cmd.ExecuteNonQuery();
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex) { Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>"); }
+            finally { myCon.Close(); }
+        }
 
         public void gridView_visible(object sender)
         {
@@ -304,6 +945,25 @@ namespace BD10_DichVuPhongTro
             string buttonText = clickedButton.Text;
             switch (buttonText)
             {
+                case "Hợp Đồng":
+                    listItem.Columns[1].Visible = true;
+                    listItem.Columns[2].Visible = true;
+                    listItem.Columns[3].Visible = true;
+                    listItem.Columns[4].Visible = true;
+                    listItem.Columns[5].Visible = true;
+                    listItem.Columns[6].Visible = true;
+                    listItem.Columns[7].Visible = true;
+                    listItem.Columns[8].Visible = true;
+                    listItem.Columns[1].HeaderText = "Ngày Hợp Đồng";
+                    listItem.Columns[2].HeaderText = "Của";
+                    listItem.Columns[3].HeaderText = "Ngày Thu Tiền Điện";
+                    listItem.Columns[4].HeaderText = "Ngày Thu Tiền Nước";
+                    listItem.Columns[5].HeaderText = "Loại Khai Báo";
+                    listItem.Columns[6].HeaderText = "Phòng Số";
+                    listItem.Columns[7].HeaderText = "Phiếu Thu";
+                    listItem.Columns[8].HeaderText = "Phiếu Chi";
+
+                    break;
                 case "Người Thuê":
                     //visible
                     listItem.Columns[1].Visible = true;
@@ -332,6 +992,9 @@ namespace BD10_DichVuPhongTro
                     listItem.Columns[7].Visible = false;
                     listItem.Columns[8].Visible = false;
                     //headtext
+                    listItem.Columns[1].HeaderText = "Loại Khai Báo";
+                    listItem.Columns[2].HeaderText = "Ngày";
+                    listItem.Columns[3].HeaderText = "Tình Trạng";
 
                     break;
                 case "Góp Ý":
@@ -345,6 +1008,10 @@ namespace BD10_DichVuPhongTro
                     listItem.Columns[7].Visible = false;
                     listItem.Columns[8].Visible = false;
                     //headtext
+                    listItem.Columns[1].HeaderText = "Ngày";
+                    listItem.Columns[2].HeaderText = "Trạng Thái";
+                    listItem.Columns[3].HeaderText = "Nội Dung";
+                    listItem.Columns[4].HeaderText = "Của";
 
                     break;
                 case "Điện":
@@ -451,4 +1118,5 @@ namespace BD10_DichVuPhongTro
             }
         }
     }
+
 }
