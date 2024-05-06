@@ -135,20 +135,20 @@
             </div>
         </div>
 
-        <!-- Modal to Add New or View / Update a Sanpham Details-->
-        <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!-- Modal to Update Details-->
+        <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" style="width: 600px;">
                 <div class="modal-content" style="font-size: 11px;">
 
                     <div class="modal-header" style="text-align: center;">
-                        <asp:Label ID="lblUpd" runat="server" Text="" Font-Size="24px" Font-Bold="true" />
+                        <asp:Label ID="lblUpd" runat="server" Text="Cập Nhật Dữ Liệu" Font-Size="24px" Font-Bold="true" />
                     </div>
 
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-12">
 
-                                <%-- Sanpham Details Textboxes --%>
+                                <%-- Details Textboxes --%>
                                 <div class="col-sm-12">
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-12">
@@ -188,7 +188,7 @@
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
                                             <asp:TextBox ID="txt1" runat="server" MaxLength="255" Visible="false" CssClass="form-control input-xs"
-                                                AutoCompleteType="Disabled"/>
+                                                AutoCompleteType="Disabled" />
                                             <asp:Label runat="server" ID="lblID" Visible="false" Font-Size="12px" />
                                         </div>
                                         <div class="col-sm-1">
@@ -198,7 +198,7 @@
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
                                             <asp:TextBox ID="txt2" runat="server" MaxLength="255" CssClass="form-control input-xs"
-                                                AutoCompleteType="Disabled" Visible="false"/>
+                                                AutoCompleteType="Disabled" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -207,7 +207,7 @@
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
                                             <asp:TextBox ID="txt3" runat="server" MaxLength="255" CssClass="form-control input-xs"
-                                                AutoCompleteType="Disabled" Visible="false"/>
+                                                AutoCompleteType="Disabled" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -216,7 +216,7 @@
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
                                             <asp:TextBox ID="txt4" runat="server" MaxLength="255" CssClass="form-control input-xs"
-                                                AutoCompleteType="Disabled" Visible="false"/>
+                                                AutoCompleteType="Disabled" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -224,7 +224,7 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="dl1" runat="server" CssClass="form-control input-xs" Visible="false"/>
+                                            <asp:DropDownList ID="dl1" runat="server" CssClass="form-control input-xs" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -232,7 +232,7 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="dl2" runat="server" CssClass="form-control input-xs" Visible="false"/>
+                                            <asp:DropDownList ID="dl2" runat="server" CssClass="form-control input-xs" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -240,7 +240,7 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="dl3" runat="server" CssClass="form-control input-xs" Visible="false"/>
+                                            <asp:DropDownList ID="dl3" runat="server" CssClass="form-control input-xs" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -248,7 +248,7 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="dl4" runat="server" CssClass="form-control input-xs" Visible="false"/>
+                                            <asp:DropDownList ID="dl4" runat="server" CssClass="form-control input-xs" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -256,7 +256,7 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="dl5" runat="server" CssClass="form-control input-xs" Visible="false"/>
+                                            <asp:DropDownList ID="dl5" runat="server" CssClass="form-control input-xs" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -264,7 +264,7 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="dl6" runat="server" CssClass="form-control input-xs" Visible="false"/>
+                                            <asp:DropDownList ID="dl6" runat="server" CssClass="form-control input-xs" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -272,7 +272,7 @@
                                     <div class="row" style="margin-top: 20px;">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="dl7" runat="server" CssClass="form-control input-xs" Visible="false"/>
+                                            <asp:DropDownList ID="dl7" runat="server" CssClass="form-control input-xs" Visible="false" />
                                         </div>
                                         <div class="col-sm-1">
                                         </div>
@@ -282,24 +282,79 @@
 
                         </div>
 
-                        <%-- Message label on modal page --%>
-                        <div class="row" style="margin-top: 20px; margin-bottom: 10px;">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-10">
-                                <asp:Label ID="lblModalMessage" runat="server" ForeColor="Red" Font-Size="12px" Text="" />
+                        <%-- Add, Update and Cancel Buttons --%>
+                        <div class="modal-footer">
+                            <asp:Button ID="btnUpd" runat="server" class="btn btn-danger button-xs" data-dismiss="modal"
+                                Text="Update"
+                                Visible="false" CausesValidation="false"
+                                OnClick="btnUpd_Click"
+                                UseSubmitBehavior="false" />
+                            <asp:Button ID="btnClose" runat="server" class="btn btn-info button-xs" data-dismiss="modal"
+                                Text="Close" CausesValidation="false"
+                                UseSubmitBehavior="false" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <%-- Modal to Thong Ke --%>
+        <div class="modal fade" id="modalTK" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width: 600px;">
+                <div class="modal-content" style="font-size: 11px;">
+
+                    <div class="modal-header" style="text-align: center;">
+                        <asp:Label ID="lblTK" runat="server" Text="Thống Kê Doanh Thu Năm Nay!" Font-Size="24px" Font-Bold="true" />
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <%-- Details Textboxes --%>
+                                <div class="col-sm-12">
+                                    <div class="row" style="margin-top: 20px; padding-bottom: 6px">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            <asp:TextBox ID="TbTK" runat="server" MaxLength="255" CssClass="form-control input-xs"
+                                                ToolTip="ID"
+                                                AutoCompleteType="Disabled" placeholder="Bạn cần thống kê tháng nào?" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <asp:Button ID="buttonTK" runat="server" class="btn btn-success" data-dismiss="modal"
+                                                Text="Thống Kê"
+                                                Visible="true" CausesValidation="false"
+                                                OnClick="btnTK_Click"
+                                                UseSubmitBehavior="false" />
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="row" style="margin-top: 20px; margin-bottom: 10px;">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-10">
+                                            <asp:Label ID="lbltkpt" runat="server" ForeColor="#333" Font-Size="16px" Text="Tổng Thu" />
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px; margin-bottom: 10px;">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-10">
+                                            <asp:Label ID="lbltkpc" runat="server" ForeColor="#333" Font-Size="16px" Text="Tổng Chi" />
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-1"></div>
+
                         </div>
                     </div>
 
-                    <%-- Add, Update and Cancel Buttons --%>
                     <div class="modal-footer">
-                        <asp:Button ID="btnUpd" runat="server" class="btn btn-danger button-xs" data-dismiss="modal"
-                            Text="Update"
-                            Visible="false" CausesValidation="false"
-                            OnClick="btnUpd_Click"
-                            UseSubmitBehavior="false" />
-                        <asp:Button ID="btnClose" runat="server" class="btn btn-info button-xs" data-dismiss="modal"
+                        <asp:Button ID="close_TK" runat="server" class="btn btn-info button-xs" data-dismiss="modal"
                             Text="Close" CausesValidation="false"
                             UseSubmitBehavior="false" />
                     </div>
@@ -307,15 +362,81 @@
                 </div>
             </div>
         </div>
+
+        <%-- Modal to Delete --%>
+        <div class="modal fade" id="modalDel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width: 600px;">
+                <div class="modal-content" style="font-size: 11px;">
+
+                    <div class="modal-header" style="text-align: center;">
+                        <asp:Label ID="lbDel" runat="server" Text="Xoá Dữ Liệu" Font-Size="24px" Font-Bold="true" />
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <%-- Details Textboxes --%>
+                                <div class="col-sm-12">
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-sm-12">
+                                            <asp:DropDownList ID="dlDel" runat="server" CssClass="form-control input-xs">
+                                                <asp:ListItem Text="Hợp Đồng" Value="HopDong" />
+                                                <asp:ListItem Text="Người Thuê" Value="NguoiThue" />
+                                                <asp:ListItem Text="Phòng Trọ" Value="PhongTro" />
+                                                <asp:ListItem Text="Phiếu Thu" Value="PhieuThu" />
+                                                <asp:ListItem Text="Phiếu Chi" Value="PhieuChi" />
+                                                <asp:ListItem Text="Nước" Value="Nuoc" />
+                                                <asp:ListItem Text="Điện" Value="Dien" />
+                                                <asp:ListItem Text="Thiết bị" Value="ThietBi" />
+                                                <asp:ListItem Text="Khai Báo" Value="KhaiBao" />
+                                                <asp:ListItem Text="Góp Ý" Value="GopY" />
+                                            </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 20px; padding-bottom: 6px">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            <asp:TextBox ID="txtDel" runat="server" MaxLength="255" CssClass="form-control input-xs"
+                                                ToolTip="ID"
+                                                AutoCompleteType="Disabled" placeholder="Nhập ID cần xoá" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <asp:Button ID="btnDelete" runat="server" class="btn btn-success" data-dismiss="modal"
+                                                Text="Delete"
+                                                Visible="true" CausesValidation="false"
+                                                OnClick="btnDel_Click"
+                                                UseSubmitBehavior="false" />
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
     <script type="text/javascript">
-        function openSPDetail(event) {
+        function openDetail(event) {
             //alert("Opening modal!");
             //jQuery.noConflict();
-            $('#modalDetail').modal('show');
+            $('#modalUpdate').modal('show');
         }
 
+        function openTK(event) {
+            //alert("Opening modal!");
+            //jQuery.noConflict();
+            $('#modalTK').modal('show');
+        }
 
+        function openDelete(event) {
+            //alert("Opening modal!");
+            //jQuery.noConflict();
+            $('#modalDel').modal('show');
+        }
     </script>
 </body>
 </html>

@@ -281,8 +281,162 @@ namespace BD10_DichVuPhongTro
 
         protected void ThongKe_Click(object sender, EventArgs e)
         {
+            lblTK.Visible = true;
+            close_TK.Visible = true;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openTK(); });", true);
+        }
+
+        public void btnDel_Click(object sender, EventArgs e)
+        {
+            ID = int.Parse(txtDel.Text);
+            String nametable = dlDel.SelectedValue;
+
+            try
+            {
+                myCon = DBClass.OpenConn();
+                switch(nametable)
+                {
+                    case "HopDong":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelHD", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "NguoiThue":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelNT", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "PhongTro":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelPTro", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "Dien":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelDien", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "Nuoc":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelNuoc", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "KhaiBao":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelKB", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "ThietBi":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelTB", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "PhieuThu":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelPT", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "PhieuChi":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelPC", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+                    case "GopY":
+                        using (SqlCommand cmd = new SqlCommand("dbo.DelGY", myCon))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                            cmd.ExecuteScalar();
+                        }
+                        break;
+
+                }
+            }
+            catch (Exception ex) { Response.Write("<script>alert('btnDel Error with "+ex.Message+"')</script>"); }
+            finally { myCon.Close(); }
+        }
+        public void btnTK_Click(object sender, EventArgs e)
+        {
+
+            ID = int.Parse(TbTK.Text);
+            DateTime year = DateTime.Now;
+            int yearNow = Convert.ToInt32(DateTime.Parse(year.ToString()).Year);
+            try
+            {
+                myCon = DBClass.OpenConn();
+                using (SqlCommand cmd = new SqlCommand("dbo.ThongKeThu_Thang", myCon))
+                {
+                    cmd.Connection = myCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Month", SqlDbType.Int).Value = ID;
+                    cmd.Parameters.Add("@Year", SqlDbType.Int).Value = yearNow;
+                    SqlDataReader myDr1 = cmd.ExecuteReader();
+
+                    if (myDr1.HasRows)
+                    {
+                        while (myDr1.Read())
+                        {
+                            lbltkpt.Text = "Tổng Thu Năm " + yearNow + " là: " + myDr1.GetValue(0).ToString();
+                        }
+
+
+                    }
+                    myCon.Close();
+                }
+                myCon = DBClass.OpenConn();
+                using (SqlCommand cmd = new SqlCommand("dbo.ThongKeChi_Thang", myCon))
+                {
+                    cmd.Connection = myCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Month", SqlDbType.Int).Value = ID;
+                    cmd.Parameters.Add("@Year", SqlDbType.Int).Value = yearNow;
+                    SqlDataReader myDr2 = cmd.ExecuteReader();
+
+                    if (myDr2.HasRows)
+                    {
+                        while (myDr2.Read())
+                        {
+                            lbltkpc.Text = "Tổng Chi Năm " + yearNow + " là: " + myDr2.GetValue(0).ToString();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Thống Kê Error With " + ex.Message + "')</script>");
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openTK(); });", true);
 
         }
+
 
         protected void btnSlcID_Click(object sender, EventArgs e)
         {
@@ -408,7 +562,7 @@ namespace BD10_DichVuPhongTro
 
             lblUpd.Visible = true;
             btnUpd.Visible = true;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openSPDetail(); });", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openDetail(); });", true);
 
         }
 
@@ -416,56 +570,14 @@ namespace BD10_DichVuPhongTro
         {
             String nametb = listTable.SelectedValue;
             Upd_Table(nametb);
-            switch (nametb)
-            {
-                case "Hợp Đồng":
-                    HopDong_Click(sender, e);
-
-                    break;
-                case "Người Thuê":
-                    NguoiThue_Click(sender, e);
-
-                    break;
-                case "Khai Báo":
-                    KhaiBao_Click(sender, e);
-
-                    break;
-                case "Góp Ý":
-                    GopY_Click(sender, e);
-
-                    break;
-                case "Điện":
-                    Dien_Click(sender, e);
-
-                    break;
-                case "Nước":
-                    Nuoc_Click(sender, e);
-
-                    break;
-                case "Phiếu Thu":
-                    PhieuThu_Click(sender, e);
-
-                    break;
-                case "Phiếu Chi":
-                    PhieuChi_Click(sender, e);
-
-                    break;
-                case "Phòng Trọ":
-                    PhongTro_Click(sender, e);
-
-                    break;
-                case "Thiết Bị":
-                    ThietBi_Click(sender, e);
-
-                    break;
-            }
-            Page_Load(sender, e);
 
         }
 
         protected void Delete_Click(object sender, EventArgs e)
         {
-
+            lbDel.Visible = true;
+            btnDelete.Visible = true;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openDelete(); });", true);
         }
 
         protected void LoginBtn_Click(object sender, EventArgs e)
