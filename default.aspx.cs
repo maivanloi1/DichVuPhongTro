@@ -23,7 +23,10 @@ namespace BD10_DichVuPhongTro
             string user = (string)Session["username"];
 
             if (user == "admin")
-            { Session["username"] = "admin"; }
+            { 
+                Session["username"] = "admin";
+
+            }
             else
                 listItem.Visible = false;
 
@@ -57,7 +60,7 @@ namespace BD10_DichVuPhongTro
                     "HopDong.KhaiBao_Id = KhaiBao.Id AND HopDong.PhongTro_Id = PhongTro.Id AND HopDong.PhieuThu_Id = PhieuThu.Id AND HopDong.PhieuChi_Id = PhieuChi.Id";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Hợp Đồng");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -83,7 +86,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT Ngay AS Column1, SoChuNuoc AS Column2, DonGia AS Column3 FROM Nuoc";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Nước");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -106,7 +109,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT Ngay AS Column1, SoChuDien AS Column2, DonGia AS Column3 FROM Dien";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Điện");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -134,7 +137,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT HoTen AS Column1, SDT AS Column2, CCCD AS Column3, QueQuan AS Column4 FROM NguoiThue";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Người Thuê");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -156,7 +159,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT SoPhong AS Column1, TinhTrang AS Column2, LoaiPhong AS Column3, DonGia AS Column4 FROM PhongTro";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Phòng Trọ");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -178,7 +181,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT SoCT AS Column1, Ngay AS Column2, TongTien AS Column3, NoiDung AS Column4 FROM PhieuThu";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Phiếu Thu");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -200,7 +203,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT SoCT AS Column1, Ngay AS Column2, TongTien AS Column3, NoiDung AS Column4 FROM PhieuChi";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Phiếu Chi");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -222,7 +225,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT Loai AS Column1, Ngay AS Column2, TinhTrang AS Column3 FROM KhaiBao";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Khai Báo");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -244,7 +247,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT Ngay AS Column1, TrangThai AS Column2, NoiDung AS Column3, NguoiThue.HoTen AS Column4 FROM GopY, NguoiThue WHERE GopY.NguoiThue_Id = NguoiThue.Id";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Góp Ý");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -266,7 +269,7 @@ namespace BD10_DichVuPhongTro
                 string qry = "SELECT TenTB AS Column1, Gia AS Column2, NgayMua AS Column3, ThoiGianBH AS Column4, PhongTro.SoPhong AS Column5 FROM ThietBi, PhongTro WHERE ThietBi.PhongTro_Id = PhongTro.Id";
                 using (SqlCommand cmd = new SqlCommand(qry, myCon))
                 {
-                    gridView_visible(sender);
+                    gridView_visible("Thiết Bị");
                     listItem.DataSource = null;
                     listItem.DataBind();
                     SqlDataReader sdr = cmd.ExecuteReader();
@@ -378,6 +381,7 @@ namespace BD10_DichVuPhongTro
                         break;
 
                 }
+
             }
             catch (Exception ex) { Response.Write("<script>alert('btnDel Error with "+ex.Message+"')</script>"); }
             finally { myCon.Close(); }
@@ -547,7 +551,7 @@ namespace BD10_DichVuPhongTro
                     Response.Write("<script>alert('Button Selected Error: " + ex.Message + "')</script>");
                 }
                 finally { myCon.Close(); }
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openSPDetail(); });", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchServerSide", "$(function() { openDetail(); });", true);
 
 
             }
@@ -570,7 +574,40 @@ namespace BD10_DichVuPhongTro
         {
             String nametb = listTable.SelectedValue;
             Upd_Table(nametb);
-
+            switch(nametb)
+            {
+                case "HopDong":
+                    HopDong_Click(sender, e); 
+                    break;
+                case "NguoiThue":
+                    NguoiThue_Click(sender, e); 
+                    break;
+                case "PhongTro":
+                    PhongTro_Click(sender, e); 
+                    break;
+                case "Dien":
+                    Dien_Click(sender, e); 
+                    break;
+                case "Nuoc":
+                    Nuoc_Click(sender, e); 
+                    break;
+                case "PhieuThu":
+                    PhieuThu_Click(sender, e); 
+                    break;
+                case "PhieuChi":
+                    PhieuChi_Click(sender, e); 
+                    break;
+                case "KhaiBao":
+                    KhaiBao_Click(sender, e); 
+                    break;
+                case "GopY":
+                    GopY_Click(sender, e); 
+                    break;
+                case "ThietBi":
+                    ThietBi_Click(sender, e); 
+                    break;
+                
+            }
         }
 
         protected void Delete_Click(object sender, EventArgs e)
@@ -1051,183 +1088,183 @@ namespace BD10_DichVuPhongTro
             finally { myCon.Close(); }
         }
 
-        public void gridView_visible(object sender)
+        public void gridView_visible(String name)
         {
-            LinkButton clickedButton = (LinkButton)sender;
-            string buttonText = clickedButton.Text;
-            switch (buttonText)
-            {
-                case "Hợp Đồng":
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = true;
-                    listItem.Columns[6].Visible = true;
-                    listItem.Columns[7].Visible = true;
-                    listItem.Columns[8].Visible = true;
-                    listItem.Columns[1].HeaderText = "Ngày Hợp Đồng";
-                    listItem.Columns[2].HeaderText = "Của";
-                    listItem.Columns[3].HeaderText = "Ngày Thu Tiền Điện";
-                    listItem.Columns[4].HeaderText = "Ngày Thu Tiền Nước";
-                    listItem.Columns[5].HeaderText = "Loại Khai Báo";
-                    listItem.Columns[6].HeaderText = "Phòng Số";
-                    listItem.Columns[7].HeaderText = "Phiếu Thu";
-                    listItem.Columns[8].HeaderText = "Phiếu Chi";
+           
+                switch (name)
+                {
+                    case "Hợp Đồng":
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = true;
+                        listItem.Columns[5].Visible = true;
+                        listItem.Columns[6].Visible = true;
+                        listItem.Columns[7].Visible = true;
+                        listItem.Columns[8].Visible = true;
+                        listItem.Columns[1].HeaderText = "Ngày Hợp Đồng";
+                        listItem.Columns[2].HeaderText = "Của";
+                        listItem.Columns[3].HeaderText = "Ngày Thu Tiền Điện";
+                        listItem.Columns[4].HeaderText = "Ngày Thu Tiền Nước";
+                        listItem.Columns[5].HeaderText = "Loại Khai Báo";
+                        listItem.Columns[6].HeaderText = "Phòng Số";
+                        listItem.Columns[7].HeaderText = "Phiếu Thu";
+                        listItem.Columns[8].HeaderText = "Phiếu Chi";
 
-                    break;
-                case "Người Thuê":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Họ Tên";
-                    listItem.Columns[2].HeaderText = "Số Điện Thoại";
-                    listItem.Columns[3].HeaderText = "Căn Cước Công Dân";
-                    listItem.Columns[4].HeaderText = "Quê Quán";
+                        break;
+                    case "Người Thuê":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = true;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Họ Tên";
+                        listItem.Columns[2].HeaderText = "Số Điện Thoại";
+                        listItem.Columns[3].HeaderText = "Căn Cước Công Dân";
+                        listItem.Columns[4].HeaderText = "Quê Quán";
 
-                    break;
-                case "Khai Báo":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = false;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Loại Khai Báo";
-                    listItem.Columns[2].HeaderText = "Ngày";
-                    listItem.Columns[3].HeaderText = "Tình Trạng";
+                        break;
+                    case "Khai Báo":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = false;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Loại Khai Báo";
+                        listItem.Columns[2].HeaderText = "Ngày";
+                        listItem.Columns[3].HeaderText = "Tình Trạng";
 
-                    break;
-                case "Góp Ý":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Ngày";
-                    listItem.Columns[2].HeaderText = "Trạng Thái";
-                    listItem.Columns[3].HeaderText = "Nội Dung";
-                    listItem.Columns[4].HeaderText = "Của";
+                        break;
+                    case "Góp Ý":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = true;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Ngày";
+                        listItem.Columns[2].HeaderText = "Trạng Thái";
+                        listItem.Columns[3].HeaderText = "Nội Dung";
+                        listItem.Columns[4].HeaderText = "Của";
 
-                    break;
-                case "Điện":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = false;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Ngày";
-                    listItem.Columns[2].HeaderText = "Số Chữ Điện";
-                    listItem.Columns[3].HeaderText = "Đơn Giá Điện";
+                        break;
+                    case "Điện":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = false;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Ngày";
+                        listItem.Columns[2].HeaderText = "Số Chữ Điện";
+                        listItem.Columns[3].HeaderText = "Đơn Giá Điện";
 
-                    break;
-                case "Nước":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = false;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Ngày";
-                    listItem.Columns[2].HeaderText = "Số Chữ Nước";
-                    listItem.Columns[3].HeaderText = "Đơn Giá Nước";
+                        break;
+                    case "Nước":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = false;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Ngày";
+                        listItem.Columns[2].HeaderText = "Số Chữ Nước";
+                        listItem.Columns[3].HeaderText = "Đơn Giá Nước";
 
-                    break;
-                case "Phiếu Thu":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Só Chứng Từ";
-                    listItem.Columns[2].HeaderText = "Ngày Thu";
-                    listItem.Columns[3].HeaderText = "Tổng Tiền Thu";
-                    listItem.Columns[4].HeaderText = "Nội Dung Thu";
+                        break;
+                    case "Phiếu Thu":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = true;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Só Chứng Từ";
+                        listItem.Columns[2].HeaderText = "Ngày Thu";
+                        listItem.Columns[3].HeaderText = "Tổng Tiền Thu";
+                        listItem.Columns[4].HeaderText = "Nội Dung Thu";
 
-                    break;
-                case "Phiếu Chi":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Só Chứng Từ";
-                    listItem.Columns[2].HeaderText = "Ngày Chi";
-                    listItem.Columns[3].HeaderText = "Tổng Tiền Chi";
-                    listItem.Columns[4].HeaderText = "Nội Dung Chi";
+                        break;
+                    case "Phiếu Chi":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = true;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Só Chứng Từ";
+                        listItem.Columns[2].HeaderText = "Ngày Chi";
+                        listItem.Columns[3].HeaderText = "Tổng Tiền Chi";
+                        listItem.Columns[4].HeaderText = "Nội Dung Chi";
 
-                    break;
-                case "Phòng Trọ":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = false;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Số Phòng";
-                    listItem.Columns[2].HeaderText = "Tình Trạng";
-                    listItem.Columns[3].HeaderText = "Loại Phòng";
-                    listItem.Columns[4].HeaderText = "Đơn Giá";
+                        break;
+                    case "Phòng Trọ":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = true;
+                        listItem.Columns[5].Visible = false;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Số Phòng";
+                        listItem.Columns[2].HeaderText = "Tình Trạng";
+                        listItem.Columns[3].HeaderText = "Loại Phòng";
+                        listItem.Columns[4].HeaderText = "Đơn Giá";
 
-                    break;
-                case "Thiết Bị":
-                    //visible
-                    listItem.Columns[1].Visible = true;
-                    listItem.Columns[2].Visible = true;
-                    listItem.Columns[3].Visible = true;
-                    listItem.Columns[4].Visible = true;
-                    listItem.Columns[5].Visible = true;
-                    listItem.Columns[6].Visible = false;
-                    listItem.Columns[7].Visible = false;
-                    listItem.Columns[8].Visible = false;
-                    //headtext
-                    listItem.Columns[1].HeaderText = "Tên Thiết Bị";
-                    listItem.Columns[2].HeaderText = "Giá";
-                    listItem.Columns[3].HeaderText = "Ngày Mua";
-                    listItem.Columns[4].HeaderText = "Thời Gian Bảo Hành";
-                    listItem.Columns[5].HeaderText = "Của Phòng";
+                        break;
+                    case "Thiết Bị":
+                        //visible
+                        listItem.Columns[1].Visible = true;
+                        listItem.Columns[2].Visible = true;
+                        listItem.Columns[3].Visible = true;
+                        listItem.Columns[4].Visible = true;
+                        listItem.Columns[5].Visible = true;
+                        listItem.Columns[6].Visible = false;
+                        listItem.Columns[7].Visible = false;
+                        listItem.Columns[8].Visible = false;
+                        //headtext
+                        listItem.Columns[1].HeaderText = "Tên Thiết Bị";
+                        listItem.Columns[2].HeaderText = "Giá";
+                        listItem.Columns[3].HeaderText = "Ngày Mua";
+                        listItem.Columns[4].HeaderText = "Thời Gian Bảo Hành";
+                        listItem.Columns[5].HeaderText = "Của Phòng";
 
-                    break;
-            }
+                        break;
+                }
+               
         }
     }
 
