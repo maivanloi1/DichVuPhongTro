@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\style.css" />
-    <Content Include="Default.aspx" />
+    <Content Include="default.aspx" />
     <Content Include="font\fontawesome-free-6.4.2\css\all.css" />
     <Content Include="font\fontawesome-free-6.4.2\css\all.min.css" />
     <Content Include="font\fontawesome-free-6.4.2\css\brands.css" />
@@ -2136,12 +2136,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBClass.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
