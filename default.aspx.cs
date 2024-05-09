@@ -625,7 +625,7 @@ namespace BD10_DichVuPhongTro
         protected void LogoutBtn_Click(object sender, EventArgs e)
         {
             Session["username"] = "";
-            Response.Redirect("default.aspx");
+            Response.Redirect("Default.aspx");
         }
 
         public void getNhomForDL(String tbname)

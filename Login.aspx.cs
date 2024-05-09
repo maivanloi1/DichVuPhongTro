@@ -19,7 +19,7 @@ namespace BD10_DichVuPhongTro
             if(TextBox1.Text.Equals("admin") && TextBox2.Text.Equals("12345"))
             {
                 Session["username"] = TextBox1.Text;
-                Response.Redirect("default.aspx");
+                Response.Redirect("Default.aspx");
             }
             else
             {
